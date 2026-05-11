@@ -1,4 +1,4 @@
-# Ex-4 Rail-Fence-Program
+# Ex-5 Rail-Fence-Program
 
 # IMPLEMENTATION OF RAIL FENCE – ROW & COLUMN TRANSFORMATION TECHNIQUE
 
@@ -19,7 +19,65 @@ STEP-4: Arrange the characters of the keyword in sorted order and the correspond
 STEP-5: Read the characters row wise or column wise in the former order to get the cipher text.
 
 # PROGRAM
+```.py
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int rails, len, i, j, dir;
+    char str[1000];
+
+    printf("Enter a Secret Message: ");
+    fgets(str, sizeof(str), stdin);
+
+    // remove newline
+    str[strcspn(str, "\n")] = '\0';
+
+    len = strlen(str);
+
+    printf("Enter number of rails: ");
+    scanf("%d", &rails);
+
+    char rail[rails][len];
+
+    // fill with newline marker
+    for(i = 0; i < rails; i++)
+        for(j = 0; j < len; j++)
+            rail[i][j] = '\n';
+
+    dir = 1;  // 1=down, -1=up
+    int row = 0;
+
+    // place characters in zig-zag
+    for(i = 0; i < len; i++) {
+        rail[row][i] = str[i];
+
+        if(row == 0)
+            dir = 1;
+        else if(row == rails - 1)
+            dir = -1;
+
+        row += dir;
+    }
+
+    printf("\nEncrypted Message: ");
+
+    // read row-wise
+    for(i = 0; i < rails; i++)
+        for(j = 0; j < len; j++)
+            if(rail[i][j] != '\n')
+                printf("%c", rail[i][j]);
+
+    printf("\n");
+
+    return 0;
+}
+```
 
 # OUTPUT
+<img width="411" height="165" alt="image" src="https://github.com/user-attachments/assets/d429ad69-7cff-499f-a007-21b4e0d32c61" />
 
 # RESULT
+The program is executed successfully
+
+
